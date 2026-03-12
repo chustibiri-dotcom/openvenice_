@@ -391,8 +391,8 @@ function WorkflowNodeComponent({ id, data }: NodeProps<WorkflowNode>) {
           </>
         )}
 
-        {/* Output preview */}
-        {result?.status === 'done' && result.output && (
+        {/* Output preview (skip for output nodes — they already display it above) */}
+        {data.nodeType !== 'output' && result?.status === 'done' && result.output && (
           <div
             className="mt-1 p-2 rounded-lg bg-green-500/[0.04] border border-green-500/[0.08] cursor-pointer"
             onClick={() => setOutputExpanded(!outputExpanded)}
@@ -418,7 +418,7 @@ function WorkflowNodeComponent({ id, data }: NodeProps<WorkflowNode>) {
             )}
           </div>
         )}
-        {result?.status === 'error' && (
+        {data.nodeType !== 'output' && result?.status === 'error' && (
           <div className="mt-1 p-2 rounded-lg bg-red-500/[0.04] border border-red-500/[0.08]">
             <span className="text-[8px] text-red-400/40 uppercase tracking-wider font-medium">Error</span>
             <p className="text-[10px] text-red-400/60 mt-0.5">{result.error}</p>
